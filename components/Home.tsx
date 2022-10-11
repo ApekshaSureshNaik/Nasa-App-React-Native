@@ -5,34 +5,46 @@ import axios from 'axios';
 
 
 export default function Home({navigation}:any) {
-    const [id, setId] = React.useState<any[]>([]);
-    const [randomId, setRandomId] = React.useState(0);
-    let filteredIds: any[]=[];
-    let newId : any[] = []
+    const [id, setId] = React.useState([]);
+    // var filteredIds: any[]=[];
+    // var newId : any[] = []
+ 
+    // const [randomId, setRandomId] = React.useState();
+   
 
-  const submit = () =>{
-    navigation.navigate('About',{
-      id:id
-    })
-  }
-
-    const handleClick= () =>   {
-        axios
-            .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=DEMO_KEY')
-            .then((response:any) => {
-                setId(response.data.near_earth_objects);
-               newId  = id.filter((item)=>{
-                  filteredIds.push(item.id);    
-              });
+  //   const handleClick= () =>   {
+  //       axios
+  //           .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
+  //           .then((response:any) => {
+  //               setId(response.data.near_earth_objects);
+  //               newId  = id.filter((item)=>{
+  //                 filteredIds.push(item.id);    
+  //             });
              
-                 const random = filteredIds[Math.floor(Math.random() * filteredIds.length)];
-                  setRandomId(random)
-                   navigation.navigate('About',{
-                    id:randomId
-                     })         
-    })
+  //               random = filteredIds[Math.floor(Math.random() * filteredIds.length)];
+  //                 setRandomId(random)
+  //                  navigation.navigate('About',{
+  //                   id:randomId
+  //                    })    
+  //   })
+  // }
+
+  const handleClick= () =>   {
+    axios
+        .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
+        .then((response:any) => {
+            response.data.near_earth_objects
+          
+           const random = response.data.near_earth_objects[Math.floor(Math.random() * response.data.near_earth_objects.length)];
+               navigation.navigate('About1',{random})    
+})
+}
+   
+    const submit = () =>{
+      navigation.navigate('About',{
+        id:id
+      })
     }
-    
 return (
  
     <View style={styles.container}>

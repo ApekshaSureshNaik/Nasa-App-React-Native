@@ -2,7 +2,6 @@ import {Text,View,StyleSheet} from 'react-native';
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-
 interface data{
   name:string,
   nasa_jpl_url:string,
