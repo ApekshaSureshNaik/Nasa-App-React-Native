@@ -3,44 +3,37 @@ import { TextInput,Button } from 'react-native-paper';
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
+var filteredIds: any[]=[];
+var newId : any[] = []
+var random
 
 export default function Home({navigation}:any) {
-    const [id, setId] = React.useState([]);
-    // var filteredIds: any[]=[];
-    // var newId : any[] = []
- 
-    // const [randomId, setRandomId] = React.useState();
+    
+    const [id, setId] = React.useState<any[]>([]);
+    
+  
+useEffect(()=>{
+  axios
+  .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
+ .then((response:any) => {
+   setId(response.data.near_earth_objects);
+   })
    
+ },[])
 
-  //   const handleClick= () =>   {
-  //       axios
-  //           .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
-  //           .then((response:any) => {
-  //               setId(response.data.near_earth_objects);
-  //               newId  = id.filter((item)=>{
-  //                 filteredIds.push(item.id);    
-  //             });
-             
-  //               random = filteredIds[Math.floor(Math.random() * filteredIds.length)];
-  //                 setRandomId(random)
-  //                  navigation.navigate('About',{
-  //                   id:randomId
-  //                    })    
-  //   })
-  // }
-
-  const handleClick= () =>   {
-    axios
-        .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
-        .then((response:any) => {
-         const random = response.data.near_earth_objects[Math.floor(Math.random() * response.data.near_earth_objects.length)];
-               navigation.navigate('About1',{random})    
-})
+  const handleClick= () => {
+     newId = id.filter((item)=>{
+    filteredIds.push(item.id);    
+    random = filteredIds[Math.floor(Math.random() * filteredIds.length)];
+    navigation.navigate('About1',{
+      random
+       })  
+    });      
 }
    
     const submit = () =>{
       navigation.navigate('About',{
-        id:id
+        id
       })
     }
 return (

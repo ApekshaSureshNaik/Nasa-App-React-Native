@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 interface data{
+  id:any
   name:string,
   nasa_jpl_url:string,
   is_potentially_hazardous_asteroid:boolean
@@ -12,29 +13,35 @@ export default function About({route}:any) {
   const [about,setAbout]=React.useState<data>()
 
    useEffect(()=>{
-       api();
-    },[])
+    info()
+},[])
 
-    const api= () =>{  
-      axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${route.params.id}?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y`)
-     .then((res:any)=>{
-        setAbout(res.data);     
-    })
-  .catch((error:any)=> {
- console.error("Error:",error)
-  })
-}
+  const info = async () => {
+    await axios.get(`https://api.nasa.gov/neo/rest/v1/neo/${route.params.id}?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y`)
+    .then((res:any)=>{
+       setAbout(res.data);     
+   })
+ .catch((error:any)=> {
+   console.error("Error:",error)
+ })
+  }
   return(
    
     <View style={style.container}>
-      {about ? (
+      {about ? 
      <>
      <View style={{ marginTop: 60 }}>
         <Text>
-        <Text style={style.text}> Name:</Text>
-         <Text style={{ fontSize: 20,fontWeight: 'bold'}}> {about.name} </Text>
+        <Text style={style.text}> ID:</Text>
+         <Text style={{ fontSize: 20,fontWeight: 'bold'}}> {about.id} </Text>
          </Text>
      </View>
+     <View style={{marginTop:15}}>
+     <Text>
+        <Text style={style.text}> Name:</Text>
+        <Text style={{ fontSize: 20,fontWeight: 'bold',textAlign:'auto'}}> {about.name} </Text>
+        </Text>
+      </View>
      <View style={{marginTop:15}}>
      <Text>
         <Text style={style.text}> NASA JPL URL:</Text>
@@ -48,7 +55,9 @@ export default function About({route}:any) {
         </Text>
         </View>
         </>
-       ) : (null) }
+        :  
+         null
+        }
     </View>
    
   );
