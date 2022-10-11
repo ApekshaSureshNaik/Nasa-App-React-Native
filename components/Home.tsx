@@ -33,9 +33,7 @@ export default function Home({navigation}:any) {
     axios
         .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
         .then((response:any) => {
-            response.data.near_earth_objects
-          
-           const random = response.data.near_earth_objects[Math.floor(Math.random() * response.data.near_earth_objects.length)];
+         const random = response.data.near_earth_objects[Math.floor(Math.random() * response.data.near_earth_objects.length)];
                navigation.navigate('About1',{random})    
 })
 }
@@ -64,7 +62,7 @@ return (
           style={styles.btn}
           onPress ={handleClick}
           >
-         <Text style={{fontSize:20}}>
+         <Text style={{fontSize:18}}>
           Random Asteriod
          </Text>
          </Button> 
@@ -76,7 +74,7 @@ return (
           color='#5746f2'
           style={styles.btn}
           onPress={submit}> 
-           <Text style={{fontSize:20}}>
+           <Text style={{fontSize:18}}>
           Submit
           </Text>
           </Button>    
