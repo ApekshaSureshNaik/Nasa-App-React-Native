@@ -8,22 +8,22 @@ var newId : any[] = []
 var random
 
 export default function Home({navigation}:any) {
-    
-    const [id, setId] = React.useState<any[]>([]);
+    const [id, setId]= React.useState('')
+    const [ids, setIds] = React.useState<any[]>([]);
     
   
 useEffect(()=>{
   axios
   .get('https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=fO1psOx6k80TiAHeNGHwsxQQ9AaJAUBC73p5ys7Y')
  .then((response:any) => {
-   setId(response.data.near_earth_objects);
+   setIds(response.data.near_earth_objects);
    })
    
  },[])
 
   const handleClick= () => {
-     newId = id.filter((item)=>{
-    filteredIds.push(item.id);    
+     ids.filter((item)=>{
+    filteredIds.push(item.ids);    
     random = filteredIds[Math.floor(Math.random() * filteredIds.length)];
     navigation.navigate('About1',{
       random
