@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 var filteredIds: any[]=[];
-var newId : any[] = []
 var random
 
 export default function Home({navigation}:any) {
